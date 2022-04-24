@@ -2,8 +2,8 @@ package routes
 
 import (
 	"sso-go/app/controllers"
-sso-go
 	"sso-go/pkg/middleware"
+
 	"github.com/gofiber/fiber/v2"
 )
 

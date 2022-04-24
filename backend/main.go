@@ -3,9 +3,8 @@ package main
 import (
 	"os"
 
-	"sso-go
-
 	"sso-go/pkg/configs"
+	"sso-go/pkg/middleware"
 	"sso-go/pkg/routes"
 	"sso-go/pkg/utils"
 
