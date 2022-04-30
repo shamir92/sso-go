@@ -16,6 +16,7 @@ func PrivateRoutes(a *fiber.App) {
 	// route.Post("/book", middleware.JWTProtected(), controllers.CreateBook)           // create a new book
 	route.Post("/user/sign/out", middleware.JWTProtected(), controllers.UserSignOut) // de-authorization user
 	route.Post("/token/renew", middleware.JWTProtected(), controllers.RenewTokens)   // renew Access & Refresh tokens
+	route.Get("/token/verify", middleware.JWTProtected(), controllers.VerifyTokens)  // verify token for every requests
 
 	// Routes for PUT method:
 	// route.Put("/book", middleware.JWTProtected(), controllers.UpdateBook) // update one book by ID
