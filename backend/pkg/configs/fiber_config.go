@@ -12,10 +12,13 @@ import (
 // See: https://docs.gofiber.io/api/fiber#config
 func FiberConfig() fiber.Config {
 	// Define server settings.
+
 	readTimeoutSecondsCount, _ := strconv.Atoi(os.Getenv("SERVER_READ_TIMEOUT"))
+	appName := os.Getenv("APP_NAME")
 
 	// Return Fiber configuration.
 	return fiber.Config{
+		AppName:     appName,
 		ReadTimeout: time.Second * time.Duration(readTimeoutSecondsCount),
 	}
 }
