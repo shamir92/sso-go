@@ -1,4 +1,5 @@
 
+Generate SQL
 CREATE TABLE region
 (
   id INT NOT NULL,
@@ -23,7 +24,7 @@ CREATE TABLE languages
   UNIQUE (uuid)
 );
 
-CREATE TABLE role
+CREATE TABLE member_role
 (
   id INT NOT NULL,
   name VARCHAR(65535) NOT NULL,
@@ -39,8 +40,8 @@ CREATE TABLE member
   name VARCHAR(65535) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  user_metada DATE NOT NULL,
-  app_metadata DATE NOT NULL,
+  user_metada json NOT NULL,
+  app_metadata json NOT NULL,
   created_at INT NOT NULL,
   updated_at INT NOT NULL,
   PRIMARY KEY (id)
@@ -57,6 +58,26 @@ CREATE TABLE member_m2m_fa
   member_id INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (member_id) REFERENCES member(id)
+);
+
+CREATE TABLE role
+(
+  id INT NOT NULL,
+  name VARCHAR(65535) NOT NULL,
+  description TEXT NOT NULL,
+  created_at DATE NOT NULL,
+  updated_at DATE NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE api
+(
+  id INT NOT NULL,
+  identifier VARCHAR(65535) NOT NULL,
+  signing_algorithm VARCHAR(65535) NOT NULL,
+  created_at DATE NOT NULL,
+  updated_at DATE NOT NULL,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE tenant
@@ -96,6 +117,55 @@ CREATE TABLE tenant_member
   role_id INT NOT NULL,
   tenant_id INT NOT NULL,
   FOREIGN KEY (member_id) REFERENCES member(id),
-  FOREIGN KEY (role_id) REFERENCES role(id),
+  FOREIGN KEY (role_id) REFERENCES member_role(id),
   FOREIGN KEY (tenant_id) REFERENCES tenant(id)
+);
+
+CREATE TABLE user
+(
+  id INT NOT NULL,
+  uuid uuid NOT NULL,
+  name VARCHAR(65535) NOT NULL,
+  email VARCHAR(65535) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  user_metadata json NOT NULL,
+  app_metadata json NOT NULL,
+  created_at DATE NOT NULL,
+  updated_at DATE NOT NULL,
+  tenant_id INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (tenant_id) REFERENCES tenant(id),
+  UNIQUE (email, tenant_id)
+);
+
+CREATE TABLE user_role
+(
+  created_at DATE NOT NULL,
+  updated_at DATE NOT NULL,
+  user_id INT NOT NULL,
+  role_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  FOREIGN KEY (role_id) REFERENCES role(id)
+);
+
+CREATE TABLE api_permission
+(
+  id INT NOT NULL,
+  scope VARCHAR(65535) NOT NULL,
+  description Text NOT NULL,
+  created_at DATE NOT NULL,
+  updated_at DATE NOT NULL,
+  api_id INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (api_id) REFERENCES api(id)
+);
+
+CREATE TABLE role_permission
+(
+  updated_at DATE NOT NULL,
+  created_at DATE NOT NULL,
+  api_permission_id INT NOT NULL,
+  role_id INT NOT NULL,
+  FOREIGN KEY (api_permission_id) REFERENCES api_permission(id),
+  FOREIGN KEY (role_id) REFERENCES role(id)
 );
