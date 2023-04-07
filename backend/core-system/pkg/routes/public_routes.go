@@ -23,4 +23,9 @@ func PublicRoutes(a *fiber.App) {
 	routeConfiguration.Post("/api", api.PostConfigurationAPI)
 	routeConfiguration.Get("/api", api.GetConfigurationAPI)
 	routeConfiguration.Get("/api/:uuid", api.GetConfigurationAPIDetail)
+	routeConfiguration.Post("/api/:uuid/permission", api.PostConfigurationAPIPermission)
+	routeConfiguration.Get("/api/:uuid/permission", api.GetConfigurationAPIPermission)
+	routeConfiguration.Get("/api/:uuid/permission/:uuid_api_permission", api.GetConfigurationAPIPermissionDetail)
+	routeConfiguration.Delete("/api/:uuid/permission/:uuid_api_permission", api.DeleteConfigurationAPIPermissionDetail)
+	routeConfiguration.Delete("/api/:uuid/permission/:uuid_api_permission/permanent", api.DeleteConfigurationAPIPermissionDetailPermanent)
 }

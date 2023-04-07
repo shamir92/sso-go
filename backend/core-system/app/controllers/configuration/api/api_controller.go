@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func ValidateStruct(data models.API) []*models.ErrorResponse {
+func validateStruct(data models.API) []*models.ErrorResponse {
 	var validate = validator.New()
 	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
 		name := strings.SplitN(fld.Tag.Get("json"), ",", 2)[0]
@@ -46,13 +46,13 @@ func PostConfigurationAPI(c *fiber.Ctx) error {
 			"message": err.Error(),
 		})
 	}
-	errors := ValidateStruct(*tempData)
+	errors := validateStruct(*tempData)
 	if errors != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(errors)
 
 	}
 
-	if models.IsValidIdentifier(tempData.SigningAlgorithm) == false {
+	if models.IsValidSigningAlgorithm(tempData.SigningAlgorithm) == false {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "unrecognize value of signing_algorithm",
 		})

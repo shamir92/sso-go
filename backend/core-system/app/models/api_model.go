@@ -17,7 +17,12 @@ type API struct {
 	SigningAlgorithm string         `gorm:"signing_algorithm" json:"signing_algorithm" validate:"required"`
 }
 
-func IsValidIdentifier(ident string) bool {
+type APIRequest struct {
+	Identifier       string `json:"identifier" validate:"required"`
+	SigningAlgorithm string `json:"signing_algorithm" validate:"required"`
+}
+
+func IsValidSigningAlgorithm(ident string) bool {
 	switch ident {
 	case
 		"HS256", "RS256":
