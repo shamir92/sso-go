@@ -60,6 +60,12 @@ func PostConfigurationAPI(c *fiber.Ctx) error {
 
 	tempData.ID, _ = uuid.NewRandom()
 	tempData.CreatedAt = time.Now()
+	tempData.TokenExpiration = 86000
+	tempData.TokenExpirationForBrowser = 86000
+	tempData.EnableRBAC = false
+	tempData.AddPermissionToAccessToken = false
+	tempData.AllowSkippingUserConsent = false
+	tempData.AllowOfflineAccess = false
 
 	if err := db.Clauses().Create(&tempData).Error; err != nil {
 		// error handling...
