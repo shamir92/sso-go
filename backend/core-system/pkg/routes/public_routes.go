@@ -2,6 +2,7 @@ package routes
 
 import (
 	"sso-go/app/controllers/configuration/api"
+	"sso-go/app/controllers/configuration/language"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -22,6 +23,8 @@ func PublicRoutes(a *fiber.App) {
 	routeConfiguration := a.Group("configuration/v1")
 	routeConfiguration.Post("/api", api.PostConfigurationAPI)
 	routeConfiguration.Get("/api", api.GetConfigurationAPI)
+
+	// ini harus ada refactor untuk :uuid ke :uuid_api
 	routeConfiguration.Get("/api/:uuid", api.GetConfigurationAPIDetail)
 	routeConfiguration.Put("/api/:uuid/setting", api.PostConfigurationAPISetting)
 	routeConfiguration.Get("/api/:uuid/setting", api.GetConfigurationAPISetting)
@@ -30,5 +33,12 @@ func PublicRoutes(a *fiber.App) {
 	routeConfiguration.Get("/api/:uuid/permission/:uuid_api_permission", api.GetConfigurationAPIPermissionDetail)
 	routeConfiguration.Delete("/api/:uuid/permission/:uuid_api_permission", api.DeleteConfigurationAPIPermissionDetail)
 	routeConfiguration.Delete("/api/:uuid/permission/:uuid_api_permission/permanent", api.DeleteConfigurationAPIPermissionDetailPermanent)
+
+	routeConfiguration.Get("/language", language.GetConfigurationLanguage)
+	routeConfiguration.Delete("/language/:uuid_language", language.DeleteLanguage)
+	routeConfiguration.Delete("/language/:uuid_language/permanent", language.DeleteLanguagePermanent)
+
+	routeSet := a.Group("initiator/v1")
+	routeSet.Post("/language", language.SetInitDatabase)
 
 }

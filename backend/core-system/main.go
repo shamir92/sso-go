@@ -92,6 +92,8 @@ func initDatabase() {
 	// 	&models.Role{},
 	// 	&models.APIPermission{},
 	// 	&models.RolePermission{},
-	// 	&models.UserRole{})
+	// 	&models.UserRole{},
+	// 	&models.Language{},
+	// )
 	// fmt.Println("Database Migrated")
 }
