@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"sso-go/pkg/utils"
+	"admin/pkg/utils"
 
 	"github.com/jmoiron/sqlx"
 

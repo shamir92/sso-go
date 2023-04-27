@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	"sso-go/app/models"
+	"admin/app/models"
 
-	"sso-go/pkg/utils"
-	"sso-go/platform/cache"
-	"sso-go/platform/database"
+	"admin/pkg/utils"
+	"admin/platform/cache"
+	"admin/platform/database"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"

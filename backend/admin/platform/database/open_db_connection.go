@@ -1,6 +1,6 @@
 package database
 
-import "sso-go/app/queries"
+import "admin/app/queries"
 
 // Queries struct for collect all app queries.
 type Queries struct {

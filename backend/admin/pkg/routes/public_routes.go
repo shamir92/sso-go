@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"sso-go/app/controllers"
+	"admin/app/controllers"
 
 	"github.com/gofiber/fiber/v2"
 )

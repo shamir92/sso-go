@@ -1,15 +1,15 @@
 package controllers
 
 import (
+	"admin/app/models"
 	"context"
-	"sso-go/app/models"
 	"time"
 
-	"sso-go/pkg/utils"
+	"admin/pkg/utils"
 
-	"sso-go/platform/cache"
+	"admin/platform/cache"
 
-	"sso-go/platform/database"
+	"admin/platform/database"
 
 	"github.com/gofiber/fiber/v2"
 )

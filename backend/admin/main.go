@@ -4,13 +4,13 @@ import (
 	"os"
 
 	"admin/pkg/configs"
-	"sso-go/pkg/middleware"
-	"sso-go/pkg/routes"
-	"sso-go/pkg/utils"
+	"admin/pkg/middleware"
+	"admin/pkg/routes"
+	"admin/pkg/utils"
 
 	"github.com/gofiber/fiber/v2"
 
-	_ "sso-go/docs" // load API Docs files (Swagger)
+	_ "admin/docs" // load API Docs files (Swagger)
 
 	_ "github.com/joho/godotenv/autoload" // load .env file automatically
 )

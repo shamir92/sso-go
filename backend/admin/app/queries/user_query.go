@@ -1,7 +1,7 @@
 package queries
 
 import (
-	"sso-go/app/models"
+	"admin/app/models"
 
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"

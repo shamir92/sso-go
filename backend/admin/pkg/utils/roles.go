@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 
-	"sso-go/pkg/repository"
+	"admin/pkg/repository"
 )
 
 // VerifyRole func for verifying a given role.

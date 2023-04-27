@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 
-	"sso-go/pkg/repository"
+	"admin/pkg/repository"
 )
 
 // GetCredentialsByRole func for getting credentials from a role name.

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"sso-go/pkg/utils"
+	"admin/pkg/utils"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
