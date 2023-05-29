@@ -1,4 +1,4 @@
-package language
+package region
 
 import (
 	"reflect"
@@ -11,7 +11,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func validateStructLanguage(data models.LanguageRequest) []*models.ErrorResponse {
+func validateStructRegion(data models.LanguageRequest) []*models.ErrorResponse {
 	var validate = validator.New()
 	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
 		name := strings.SplitN(fld.Tag.Get("json"), ",", 2)[0]
@@ -35,10 +35,10 @@ func validateStructLanguage(data models.LanguageRequest) []*models.ErrorResponse
 	return errors
 }
 
-func GetConfigurationLanguage(c *fiber.Ctx) error {
+func GetConfigurationRegion(c *fiber.Ctx) error {
 	db := database.DBConn
 	// var err error
-	tx := []models.Language{}
+	tx := []models.Region{}
 	if err := db.Find(&tx).Error; err != nil {
 		// error handling...
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
@@ -52,28 +52,28 @@ func GetConfigurationLanguage(c *fiber.Ctx) error {
 	})
 }
 
-func SetInitDatabaseLanguage(c *fiber.Ctx) error {
+func SetInitDatabaseRegion(c *fiber.Ctx) error {
 	db := database.DBConn
 
-	tempData := new(models.LanguageSetJson)
+	tempData := new(models.RegionSetJson)
 	if err := c.BodyParser(tempData); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": err.Error(),
 		})
 	}
 
-	var languages []models.Language
+	var regions []models.Region
 
 	for _, arr := range *tempData {
 		// perform an operation
-		language := new(models.Language)
-		language.Name = arr.Name
-		language.DisplayName = arr.Name
-		language.LanguageCode = arr.Code
-		language.ID, _ = uuid.NewRandom()
-		languages = append(languages, *language)
+		region := new(models.Region)
+		region.Name = arr.Name
+		region.DisplayName = arr.Name
+		region.RegionCode = arr.Code
+		region.ID, _ = uuid.NewRandom()
+		regions = append(regions, *region)
 	}
-	db.CreateInBatches(languages, 100)
+	db.CreateInBatches(regions, 100)
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": nil,
@@ -81,12 +81,12 @@ func SetInitDatabaseLanguage(c *fiber.Ctx) error {
 	})
 }
 
-func DeleteLanguage(c *fiber.Ctx) error {
+func DeleteRegion(c *fiber.Ctx) error {
 	db := database.DBConn
-	uuidLanguage := uuid.Must(uuid.Parse(c.Params("uuid_language")))
-	tx := models.Language{}
+	uuidRegion := uuid.Must(uuid.Parse(c.Params("uuid_region")))
+	tx := models.Region{}
 
-	if err := db.Where("ID = ?", uuidLanguage).First(&tx).Error; err != nil {
+	if err := db.Where("ID = ?", uuidRegion).First(&tx).Error; err != nil {
 		// error handling...
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": err.Error(),
@@ -106,13 +106,13 @@ func DeleteLanguage(c *fiber.Ctx) error {
 	})
 }
 
-func DeleteLanguagePermanent(c *fiber.Ctx) error {
+func DeleteRegionPermanent(c *fiber.Ctx) error {
 	db := database.DBConn
-	uuidLanguage := uuid.Must(uuid.Parse(c.Params("uuid_language")))
-	tx := models.Language{}
-	tx.ID = uuidLanguage
+	uuidRegion := uuid.Must(uuid.Parse(c.Params("uuid_region")))
+	tx := models.Region{}
+	tx.ID = uuidRegion
 
-	if err := db.Unscoped().Where("id = ?", uuidLanguage).First(&tx).Error; err != nil {
+	if err := db.Unscoped().Where("id = ?", uuidRegion).First(&tx).Error; err != nil {
 		// error handling...
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": err.Error(),

@@ -3,6 +3,7 @@ package routes
 import (
 	"sso-go/app/controllers/configuration/api"
 	"sso-go/app/controllers/configuration/language"
+	"sso-go/app/controllers/configuration/region"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -37,8 +38,12 @@ func PublicRoutes(a *fiber.App) {
 	routeConfiguration.Get("/language", language.GetConfigurationLanguage)
 	routeConfiguration.Delete("/language/:uuid_language", language.DeleteLanguage)
 	routeConfiguration.Delete("/language/:uuid_language/permanent", language.DeleteLanguagePermanent)
+	routeConfiguration.Get("/region", region.GetConfigurationRegion)
+	routeConfiguration.Delete("/region/:uuid_region", region.DeleteRegion)
+	routeConfiguration.Delete("/region/:uuid_region/permanent", region.DeleteRegionPermanent)
 
 	routeSet := a.Group("initiator/v1")
-	routeSet.Post("/language", language.SetInitDatabase)
+	routeSet.Post("/language", language.SetInitDatabaseLanguage)
+	routeSet.Post("/region", region.SetInitDatabaseRegion)
 
 }
